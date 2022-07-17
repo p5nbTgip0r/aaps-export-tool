@@ -3,7 +3,6 @@ package cmd
 import (
 	"aaps-export-tool/util"
 	"encoding/hex"
-	"errors"
 	"fmt"
 	"github.com/spf13/cobra"
 	"github.com/tidwall/gjson"
@@ -34,17 +33,7 @@ aaps-export-tool decrypt export.json --out "decrypted.json"
 aaps-export-tool decrypt export.json --console
 aaps-export-tool decrypt export.json --preferences-object
 `,
-	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 1 {
-			return errors.New("requires an input file")
-		}
-
-		_, err := ioutil.ReadFile(args[0])
-		if err != nil {
-			return err
-		}
-		return nil
-	},
+	Args: pathArg,
 	Run: func(cmd *cobra.Command, args []string) {
 		data, err := ioutil.ReadFile(args[0])
 		if err != nil {

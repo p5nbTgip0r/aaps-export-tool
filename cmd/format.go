@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"aaps-export-tool/util"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -25,17 +24,7 @@ var formatCmd = &cobra.Command{
 
 AAPS cannot import a settings export when the 'content' key is not a string, but JSON as a string is hard to edit manually.
 This command allows you to convert the preferences between JSON object and string, to allow for manual editing and re-importing.`,
-	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 1 {
-			return errors.New("requires an input file")
-		}
-
-		_, err := ioutil.ReadFile(args[0])
-		if err != nil {
-			return err
-		}
-		return nil
-	},
+	Args: pathArg,
 	Run: func(cmd *cobra.Command, args []string) {
 		data, err := ioutil.ReadFile(args[0])
 		if err != nil {

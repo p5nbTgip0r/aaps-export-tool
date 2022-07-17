@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"aaps-export-tool/util"
-	"errors"
 	"fmt"
 	"github.com/spf13/cobra"
 	"io/ioutil"
@@ -20,17 +19,7 @@ var rehashCmd = &cobra.Command{
 	Short: "Re-calculates the file hash embedded in an export file",
 	Long: `Re-calculates the 'file_hash' value in an export file.
 This is useful when the export file has been modified manually and the file hash is no longer valid.`,
-	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 1 {
-			return errors.New("requires an input file")
-		}
-
-		_, err := ioutil.ReadFile(args[0])
-		if err != nil {
-			return err
-		}
-		return nil
-	},
+	Args: pathArg,
 	Run: func(cmd *cobra.Command, args []string) {
 		data, err := ioutil.ReadFile(args[0])
 		if err != nil {

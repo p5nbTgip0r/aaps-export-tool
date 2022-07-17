@@ -2,7 +2,9 @@ package cmd
 
 import (
 	"aaps-export-tool/core"
+	"errors"
 	"github.com/AlecAivazis/survey/v2"
+	"io/ioutil"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -15,6 +17,18 @@ var rootCmd = &cobra.Command{
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
+}
+
+var pathArg = func(cmd *cobra.Command, args []string) error {
+	if len(args) < 1 {
+		return errors.New("requires an input file")
+	}
+
+	_, err := ioutil.ReadFile(args[0])
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

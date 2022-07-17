@@ -3,7 +3,6 @@ package cmd
 import (
 	"aaps-export-tool/util"
 	"encoding/hex"
-	"errors"
 	"fmt"
 	"github.com/tidwall/gjson"
 	"io/ioutil"
@@ -32,17 +31,7 @@ Examples:
 aaps-export-tool encrypt export.json
 aaps-export-tool encrypt export.json --out "encrypted.json"
 aaps-export-tool encrypt export.json --console`,
-	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 1 {
-			return errors.New("requires an input file")
-		}
-
-		_, err := ioutil.ReadFile(args[0])
-		if err != nil {
-			return err
-		}
-		return nil
-	},
+	Args: pathArg,
 	Run: func(cmd *cobra.Command, args []string) {
 		data, err := ioutil.ReadFile(args[0])
 		if err != nil {

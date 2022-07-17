@@ -5,7 +5,6 @@ import (
 	"aaps-export-tool/util"
 	"encoding/hex"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/spf13/cobra"
@@ -36,17 +35,7 @@ aaps-export-tool objectives export.json --out "export-objectives.json"
 aaps-export-tool objectives export.json -j 4 -j 5
 aaps-export-tool objectives export.json -j 6,7,8`,
 	Hidden: true,
-	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 1 {
-			return errors.New("requires an input file")
-		}
-
-		_, err := ioutil.ReadFile(args[0])
-		if err != nil {
-			return err
-		}
-		return nil
-	},
+	Args:   pathArg,
 	Run: func(cmd *cobra.Command, args []string) {
 		data, err := ioutil.ReadFile(args[0])
 		if err != nil {
