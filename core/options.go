@@ -1,5 +1,5 @@
 package core
 
-const Version = "dev"
+const Version = ""
 
 var Verbose bool
