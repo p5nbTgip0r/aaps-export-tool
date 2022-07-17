@@ -17,7 +17,13 @@ jobs:
             goos: windows
     steps:
       - uses: actions/checkout@v2
-      - uses: wangyoucao577/go-release-action@v1.30
+      - name: Set version
+        if: github.event_name == 'release'
+        run: |
+          TAG=$(basename ${{ github.ref }})
+          sed -i "s/const Version = \"dev\"/const Version = \"${TAG}\"/g" ./core/options.go
+      - name: Build and release
+        uses: wangyoucao577/go-release-action@v1.30
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.goos }}
