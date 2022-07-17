@@ -12,8 +12,9 @@ import (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "aaps-export-tool",
-	Short: "A CLI tool for exported AndroidAPS settings files",
+	Use:     "aaps-export-tool",
+	Short:   "A CLI tool for exported AndroidAPS settings files",
+	Version: core.Version,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
